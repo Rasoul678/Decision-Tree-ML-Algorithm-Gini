@@ -9,7 +9,7 @@ from DecisionTree import DecisionTree
 diabetes = load_diabetes()
 feature_names = diabetes["feature_names"]
 diabetes_df = pd.DataFrame(data=diabetes.data, columns=feature_names)
-print(diabetes_df.head(4))
+# print(diabetes_df.head(4))
 
 breast_cancer = load_breast_cancer()
 X, y = breast_cancer.data, breast_cancer.target
@@ -29,11 +29,11 @@ predictions = tree.predict(X_test)
 accuracy = accuracy_score(y_test, predictions)
 print(f"Accuracy: {accuracy:.2f}")
 
-depths = [3,5,7,10]
-for depth in depths:
-    tree = DecisionTree(max_depth=depth)
-    tree.fit(X_train, y_train)
-    predictions = tree.predict(X_test)
-    accuracy = accuracy_score(y_test, predictions)
-    print(f"Depth: {depth}, Accuracy: {accuracy:.2f}")
+# depths = [3,5,7,10]
+# for depth in depths:
+#     tree = DecisionTree(max_depth=depth)
+#     tree.fit(X_train, y_train)
+#     predictions = tree.predict(X_test)
+#     accuracy = accuracy_score(y_test, predictions)
+#     print(f"Depth: {depth}, Accuracy: {accuracy:.2f}")
 

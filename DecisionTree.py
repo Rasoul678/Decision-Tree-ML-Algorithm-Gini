@@ -6,19 +6,19 @@ class Node:
     def __init__(self, feature=None, threshold=None, left=None, right=None, *, value=None):
         self.feature = feature      # Index of the feature to split on
         self.threshold = threshold  # Threshold value for the split
-        self.left = left            # Left subtree (<= threshold)
-        self.right = right          # Right subtree (> threshold)
+        self.left: Node = left            # Left subtree (<= threshold)
+        self.right: Node = right          # Right subtree (> threshold)
         self.value = value          # Class label if it's a leaf node
 
-    def is_leaf_node(self):
+    def is_leaf_node(self) -> bool:
         return self.value is not None
 
 # Step 2: Implement the Decision Tree
 class DecisionTree:
     def __init__(self, max_depth=100, min_samples_split=2):
-        self.max_depth = max_depth
-        self.min_samples_split = min_samples_split
-        self.root = None
+        self.max_depth: int = max_depth
+        self.min_samples_split: int = min_samples_split
+        self.root: Node | None = None
 
     def fit(self, X, y):
         self.root = self._grow_tree(X, y)
@@ -46,7 +46,7 @@ class DecisionTree:
 
         return Node(feature=best_feature, threshold=best_thresh, left=left, right=right)
 
-    def _best_split(self, X, y):
+    def _best_split(self, X, y) -> tuple[int,int]:
         best_gain = -1
         split_idx, split_thresh = None, None
 
@@ -68,7 +68,7 @@ class DecisionTree:
 
         return split_idx, split_thresh
 
-    def _information_gain(self, parent, left, right):
+    def _information_gain(self, parent, left, right) -> float:
         weight_left = len(left) / len(parent)
         weight_right = len(right) / len(parent)
         gain = self._gini(parent) - (
@@ -76,7 +76,7 @@ class DecisionTree:
         )
         return gain
 
-    def _gini(self, y):
+    def _gini(self, y) -> float:
         counts = np.bincount(y)
         probabilities = counts / len(y)
         return 1 - np.sum(probabilities**2)
